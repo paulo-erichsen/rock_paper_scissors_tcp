@@ -1,4 +1,4 @@
-This was an assignment I had to do for my Computer Comminication & Networks class. We had to learn the berkeley Sockets.
+This was an assignment I had to do for my Computer Communication & Networks class. We had to learn the berkeley Sockets.
 The server starts listening to a TCP port and waits until 2 clients connects.
 Once that happens, it starts the game for those clients.
 
