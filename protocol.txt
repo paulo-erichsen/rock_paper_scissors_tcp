@@ -1,0 +1,35 @@
+The Protocol:
+
+The server opens the welcome socket, then listens (accept() ) incoming connections from the clients. When a client connects, the server will ask for that client's player's name then receive and store it. When the second player connects, it will do the same, and then send the opponent's name to each client.
+
+From that point on, the server loops, sending to the client's the start of a new round. It will then wait for the clients to send the player's choices and then process the results.
+
+client 1,2 <<-----TCP connection ----->> server # handshake is established
+client 1,2 <<----- "NAME" ------------ server # server requests the name
+client 1,2 ---------- name --------------->> server # clients send the name to the server
+client 1,2 <<---------- "OPNT" --------------- server # server sends the command to let the client know who the opponent is
+client 1,2 <<---------- name --------------- server # server send the actual opponent's name to each client
+
+------------------------- Loop -----------------------------
+client 1,2 <<----------- "ROUND" -------------- server # the server let the client's know it's the start of a new round (it will expect the receive the user's inputs for that round)
+client 1,2 ---  'r' OR 'p' OR 's' OR 'q' -->> server # Client sends the option for rock/scissor/paper/quit to the server
+client 1,2 <<-----"RWIN" OR "RLOSS" OR "RDRAW" --- server # server tells the clients who won, lost or if it was a draw
+client 1,2 <<---------- round_result_message --------------- server  # the server sends a message for the result of the round, such as, "you lost, rock beats scissors!"
+
+## If one of the players types to QUIT, then the following happens:
+------------------------ loop end -------------------------
+client 1,2 <<--------------- "PDC" --------------- server # server lets the client know that a Player Disconnected
+client 1,2 <<----- close connection ----->> server
+
+Client side commands/communication sent:
+'r' - Rock
+'s' - Scissor
+'p' - Paper
+'q' - Quit Server side commands/communication sent:
+name - the player's name
+
+Server side commands sent:
+GET_NAME = "NAME" - signal for the client to get the name of the user
+TURN = "ROUND" - signal for the client to get the choice of the option of the user
+SET_OPPONENT = "OPNT" - signal the client that the server is about to send the name of the opponent
+DC = "PDC" - game over / Player disconnect signal

@@ -1,0 +1,22 @@
+This was an assignment I had to do for my Computer Comminication & Networks class. We had to learn the berkeley Sockets.
+The server starts listening to a TCP port and waits until 2 clients connects.
+Once that happens, it starts the game for those clients.
+
+Installation:
+    make
+
+Run the Server:
+    ./server PORT_NUMBER
+
+Run the Client:
+    ./client HOSTNAME PORT_NUMBER
+
+Example:
+On my machine, I run the `hostname` command to get the hostname. If the output is: "Killer_Machine", then I'll start the server on it, on port 6789
+   ./server 6789
+Then on another machine, or the same machine, I run a client
+   ./client Killer_machine 6789
+Then I would start a second client that will be player 2.
+   ./client Killer_machine 6789
+
+Once at least 2 players are connected, the server will start the game for them.
